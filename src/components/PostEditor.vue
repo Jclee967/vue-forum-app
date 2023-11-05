@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps } from 'vue'
+import { ref, defineEmits } from 'vue'
 
 const text = ref('')
 const emit = defineEmits(['save'])

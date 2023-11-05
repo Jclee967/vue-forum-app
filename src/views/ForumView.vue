@@ -5,7 +5,11 @@
         <h1>{{ forum.name }}</h1>
         <p class="text-lead">{{ forum.description }}</p>
       </div>
-      <a href="new-thread.html" class="btn-green btn-small">Start a thread</a>
+      <router-link
+        :to="{ name: 'threadCreate', params: { forumId: forum.id } }"
+        class="btn-green btn-small"
+        >Start a thread</router-link
+      >
     </div>
   </div>
 
@@ -18,6 +22,7 @@
 import { defineProps, computed } from 'vue'
 import ThreadList from '../components/ThreadList.vue'
 import { useStore } from 'vuex'
+import { findById } from '../helpers'
 const store = useStore()
 
 const props = defineProps({
@@ -28,7 +33,7 @@ const props = defineProps({
 })
 
 const forum = computed(() => {
-  return store.state.forums.find((forum) => forum.id === props.id)
+  return findById(store.state.forums, props.id)
 })
 
 const threads = computed(() => {

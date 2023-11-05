@@ -1,6 +1,15 @@
 <template>
   <div class="col-large push-top">
-    <h1>{{ thread.title }}</h1>
+    <h1>
+      {{ thread.title }}
+      <router-link
+        :to="{ name: 'threadEdit', id: this.id }"
+        class="btn-green btn-small"
+        tag="button"
+      >
+        Edit Thread
+      </router-link>
+    </h1>
     <PostList :posts="threadPosts" />
     <PostEditor @save="addPost" />
   </div>
@@ -11,6 +20,7 @@ import { computed, defineProps } from 'vue'
 import PostList from '../components/PostList.vue'
 import PostEditor from '../components/PostEditor.vue'
 import { useStore } from 'vuex'
+import { findById } from '../helpers'
 const store = useStore()
 
 // instead of using useRoute, define the id in props and add restriction
@@ -30,7 +40,7 @@ const posts = computed(() => {
 })
 
 const thread = computed(() => {
-  return threads.value.find((thread) => thread.id === props.id)
+  return findById(threads.value, props.id)
 })
 
 const threadPosts = computed(() => {
@@ -42,7 +52,6 @@ function addPost(eventData) {
     ...eventData.newPost,
     threadId: props.id
   }
-  console.log(newPost)
   store.dispatch('createPost', newPost)
 }
 </script>

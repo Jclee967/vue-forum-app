@@ -2,10 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import ForumView from '@/views/ForumView.vue'
 import ThreadView from '@/views/ThreadView.vue'
+import ThreadCreateView from '@/views/ThreadCreateView.vue'
+import ThreadEditView from '@/views/ThreadEditView.vue'
 import CategoryView from '@/views/CategoryView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import { useStore } from 'vuex'
+import { findById } from '../helpers'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,11 +45,11 @@ const router = createRouter({
     },
     {
       path: '/thread/:id',
-      name: 'threadView',
+      name: 'thread',
       component: ThreadView,
       props: true,
       beforeEnter: (to) => {
-        const threadExists = useStore().state.threads.find((thread) => thread.id === to.params.id)
+        const threadExists = findById(useStore().state.threads, to.params.id)
         // next() is no necessary
         if (!threadExists)
           return {
@@ -59,6 +62,18 @@ const router = createRouter({
             hash: to.hash
           }
       }
+    },
+    {
+      path: '/forum/:forumId/thread/create',
+      name: 'threadCreate',
+      component: ThreadCreateView,
+      props: true
+    },
+    {
+      path: '/thread/:id/edit',
+      name: 'threadEdit',
+      component: ThreadEditView,
+      props: true
     },
     {
       path: '/:pathMatch(.*)*',

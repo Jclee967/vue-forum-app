@@ -6,7 +6,7 @@
       <div v-for="thread in threads" :key="thread.id" class="thread">
         <div>
           <p>
-            <router-link :to="{ name: 'threadView', params: { id: thread.id } }">{{
+            <router-link :to="{ name: 'thread', params: { id: thread.id } }">{{
               thread.title
             }}</router-link>
           </p>
@@ -38,6 +38,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { findById } from '../helpers'
 const store = useStore()
 
 const props = defineProps({
@@ -56,10 +57,10 @@ const users = computed(() => {
 })
 
 function postById(postId) {
-  return posts.value.find((p) => p.id === postId)
+  return findById(posts.value, postId)
 }
 function userById(userId) {
-  return users.value.find((u) => u.id === userId)
+  return findById(users.value, userId)
 }
 </script>
 

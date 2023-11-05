@@ -7,6 +7,7 @@
 import { defineProps, computed } from 'vue'
 import ForumList from '../components/ForumList.vue'
 import { useStore } from 'vuex'
+import { findById } from '../helpers';
 const store = useStore()
 
 const props = defineProps({
@@ -17,7 +18,7 @@ const props = defineProps({
 })
 
 const category = computed(() => {
-  return store.state.categories.find((category) => category.id === props.id)
+  return findById(store.state.categories, props.id)
 })
 
 function getForumsInCategory(category) {
