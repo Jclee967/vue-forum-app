@@ -4,7 +4,8 @@ import ForumView from '@/views/ForumView.vue'
 import ThreadView from '@/views/ThreadView.vue'
 import CategoryView from '@/views/CategoryView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
-import sourceData from '@/data.json'
+import ProfileView from '@/views/ProfileView.vue'
+import { useStore } from 'vuex'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,10 +16,23 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/me',
+      name: 'profile',
+      component: ProfileView,
+      meta: { toTop: true, smoothScroll: true } //always scroll to top
+    },
+    ,
+    {
+      path: '/me/edit',
+      name: 'profileEdit',
+      component: ProfileView,
+      props: { edit: true }
+    },
+    {
       path: '/category/:id',
       name: 'category',
       component: CategoryView,
-      props:true
+      props: true
     },
     {
       path: '/forum/:id',
@@ -31,28 +45,33 @@ const router = createRouter({
       name: 'threadView',
       component: ThreadView,
       props: true,
-      beforeEnter:(to) =>
-      {
-        const threadExists = sourceData.threads.find(thread=> thread.id === to.params.id)
+      beforeEnter: (to) => {
+        const threadExists = useStore().state.threads.find((thread) => thread.id === to.params.id)
         // next() is no necessary
         if (!threadExists)
-        return {
-          name: 'NotFound',
-          params: {
-            pathMatch : to.path.substring(1).split("/")
-          },
-          // preserve queries
-          query: to.query,
-          hash: to.hash
-        }
+          return {
+            name: 'NotFound',
+            params: {
+              pathMatch: to.path.substring(1).split('/')
+            },
+            // preserve queries
+            query: to.query,
+            hash: to.hash
+          }
       }
     },
-    { 
-      path: '/:pathMatch(.*)*', 
+    {
+      path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: NotFoundView 
+      component: NotFoundView
     }
-  ]
+  ],
+  scrollBehavior(to) {
+    const scroll = {}
+    if (to.meta.toTop) scroll.top = 0
+    if (to.meta.smoothScroll) scroll.behavior = 'smooth'
+    return scroll
+  }
 })
 
 export default router

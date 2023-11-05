@@ -13,8 +13,9 @@
 </template>
 
 <script setup>
-import sourceData from '@/data.json'
 import ForumList from './ForumList.vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const props = defineProps({
   categories: {
@@ -24,6 +25,6 @@ const props = defineProps({
 })
 
 function getForumsInCategory(category) {
-  return sourceData.forums.filter((forum) => forum.categoryId === category.id)
+  return store.state.forums.filter((forum) => forum.categoryId === category.id)
 }
 </script>

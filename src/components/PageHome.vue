@@ -1,12 +1,15 @@
 <template>
-  <h1 class="text-center">Welcome to the Forum</h1>
+  <h1 class="text-center push-top">Welcome to the Forum</h1>
   <CategoryList :categories="categories" />
 </template>
 
 <script setup>
 import CategoryList from './CategoryList.vue'
-import sourceData from '@/data.json'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
-const categories = ref(sourceData.categories)
+const categories = computed(() => {
+  return store.state.categories
+})
 </script>

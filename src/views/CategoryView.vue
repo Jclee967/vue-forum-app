@@ -4,9 +4,10 @@
 </template>
 
 <script setup>
-import sourceData from '@/data.json'
 import { defineProps, computed } from 'vue'
 import ForumList from '../components/ForumList.vue'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const props = defineProps({
   id: {
@@ -16,10 +17,10 @@ const props = defineProps({
 })
 
 const category = computed(() => {
-  return sourceData.categories.find((category) => category.id === props.id)
+  return store.state.categories.find((category) => category.id === props.id)
 })
 
 function getForumsInCategory(category) {
-  return sourceData.forums.filter((forum) => forum.categoryId === category.id)
+  return store.state.forums.filter((forum) => forum.categoryId === category.id)
 }
 </script>
