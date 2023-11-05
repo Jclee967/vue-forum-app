@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import ForumView from '@/views/ForumView.vue'
 import ThreadView from '@/views/ThreadView.vue'
+import CategoryView from '@/views/CategoryView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import sourceData from '@/data.json'
 
@@ -11,6 +13,18 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/category/:id',
+      name: 'category',
+      component: CategoryView,
+      props:true
+    },
+    {
+      path: '/forum/:id',
+      name: 'forum',
+      component: ForumView,
+      props: true
     },
     {
       path: '/thread/:id',

@@ -26,11 +26,8 @@ function save() {
         threadId: '',
         userId: 'rpbB8C6ifrYmNDufMERWfQUoa202'
     }
-    // posts.value.push(newPost)
-    // threads.value.push(postId)
 
     emit('save', { newPost })
-
     text.value = ''
 
 }
