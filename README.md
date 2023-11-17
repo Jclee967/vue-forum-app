@@ -1,14 +1,18 @@
 # vue-forum-app
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a single-page web application of a forum community platform that allow various functions:
+- Browse the forum by categories and threads
+- View and update User's profile
+- Create and Edit threads
+- Create and Edit posts
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Customize configuration
+## Technology Used
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Vue 3 + Composition API
+- Vuex 4.1
+- Vue Router
 
 ## Project Setup
 
@@ -33,3 +37,6 @@ npm run build
 ```sh
 npm run lint
 ```
+## Enhancement
+- implement API call to database
+- user authentication
